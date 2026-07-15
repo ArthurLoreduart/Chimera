@@ -1,0 +1,405 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    /* Regra 'correta' do seu ficheiro principal (com gradiente) */
+    background:
+        radial-gradient(ellipse at top, #22303b2f 30%, transparent 80%),
+        radial-gradient(ellipse at bottom, #1a2b3a86 25%, transparent 80%),
+        #000000;
+    background-attachment: fixed;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+}
+
+
+.container {
+    font-family: 'Roboto', sans-serif;
+    padding: 1em;
+    display: flex;
+    gap: 40px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+
+/* Alterado de .coluna-esquerda */
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+
+/* Alterado de .coluna-direita */
+.right-column {
+    flex: 2.5;
+}
+
+
+/* Alterado de .botao */
+.button {
+
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+}
+
+
+/* Alterado de .icones-acao */
+.action-icons {
+    display: flex;
+    gap: 30px;
+    font-size: 32px;
+    color: #f0f0f0;
+}
+
+
+.action-icons i {
+    cursor: pointer;
+}
+
+
+/* Alterado de .sinopse */
+.synopsis {
+    margin-top: 2.1em;
+}
+
+
+.synopsis h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+
+.synopsis p {
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+
+/* Alterado de .player-video */
+.video-player iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+}
+
+
+/* Estilos para a nova barra de comentário (related-search) */
+.related-search {
+    margin-top: 30px; /* Espaço após o trailer */
+    margin-bottom: 30px; /* Espaço antes das reviews/ratings */
+}
+
+.related-search form {
+    display: flex;
+    width: 100%;
+    background-color: #2a2a2a;
+    border-radius: 25px;
+    overflow: hidden;
+    align-items: center;
+    padding-right: 5px;
+}
+
+.related-search input[type="text"] {
+    flex-grow: 1;
+    padding: 15px 20px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+.related-search input[type="text"]::placeholder {
+    color: #999;
+}
+
+.related-search button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    font-size: 18px;
+    margin: 5px;
+}
+
+.related-search button:hover {
+    transform: scale(1.05);
+}
+
+
+/* Alterado de .container-avaliacoes */
+.reviews-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+
+/* Alterado de .avaliacoes-usuarios */
+.user-reviews {
+    flex: 2;
+}
+
+
+/* Alterado de .pontuacoes */
+.ratings {
+    font-family: 'Roboto', sans-serif;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.user-reviews h3,
+.ratings h3 {
+    font-size: 20px;
+    color: #ffffff;
+    border-bottom: 1px solid #444;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+
+/* Alterado de .item-avaliacao */
+.review-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+
+.review-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+
+/* Alterado de .conteudo-avaliacao */
+.review-content h4 {
+    margin: 0 0 5px 0;
+    color: #ffffff;
+}
+
+
+.review-content p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* Alterado de .caixa-pontuacao */
+.rating-box {
+    background-color: #1a1a1a;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+
+/* Alterado de .item-pontuacao */
+.rating-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+
+.rating-item h4 {
+    margin: 0;
+    font-weight: normal;
+}
+
+
+.rating-item p {
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
+/* Alterado de .icone-tomate */
+.tomato-icon {
+    font-size: 24px;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 1em;
+        max-width: 100%;
+    }
+
+    .left-column {
+        flex: none;
+        width: 100%;
+    }
+
+    .right-column {
+        flex: none;
+        width: 100%;
+    }
+
+    .action-icons {
+        gap: 20px;
+        font-size: 24px;
+    }
+
+    .synopsis h2 {
+        font-size: 20px;
+    }
+
+    .synopsis p {
+        font-size: 14px;
+    }
+
+    .video-player iframe {
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .related-search input[type="text"] {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .reviews-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .user-reviews h3,
+    .ratings h3 {
+        font-size: 18px;
+    }
+
+    .review-item {
+        gap: 10px;
+    }
+
+    .review-item img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .review-content p {
+        font-size: 13px;
+    }
+
+    .rating-box {
+        padding: 12px;
+    }
+
+    .rating-item {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.5em;
+        gap: 15px;
+    }
+
+    .button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .action-icons {
+        gap: 15px;
+        font-size: 20px;
+    }
+
+    .synopsis {
+        margin-top: 1.5em;
+    }
+
+    .synopsis h2 {
+        font-size: 18px;
+    }
+
+    .synopsis p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .related-search {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .related-search input[type="text"] {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .related-search button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .user-reviews h3,
+    .ratings h3 {
+        font-size: 16px;
+    }
+
+    .review-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .review-item img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .review-content h4 {
+        font-size: 14px;
+    }
+
+    .review-content p {
+        font-size: 12px;
+    }
+
+    .rating-item h4 {
+        font-size: 14px;
+    }
+
+    .rating-item p {
+        font-size: 14px;
+    }
+
+    .tomato-icon {
+        font-size: 20px;
+    }
+}

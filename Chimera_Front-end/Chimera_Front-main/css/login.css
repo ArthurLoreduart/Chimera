@@ -1,0 +1,201 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit; /* Faz o link herdar a cor do texto do elemento pai */
+  text-decoration: none; /* Remove o sublinhado */
+}
+
+body {
+  /* Regra 'correta' do seu ficheiro principal (com gradiente) */
+    background: 
+        radial-gradient(ellipse at top, #22303b2f 30%, transparent 80%),
+        radial-gradient(ellipse at bottom, #1a2b3a86 25%, transparent 80%),
+        #000000; 
+    background-attachment: fixed;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+}
+
+/* ====================================================== */
+/* ========== ESTILOS DO FORMULÁRIO DE LOGIN ========== */
+/* ====================================================== */
+
+/* Regra para o <p> do recuperar senha (que estava no login.css) */
+.login-form p {
+    color: #aaa;
+    text-align: left;
+    font-size: 0.9em; /* Ajustei o tamanho */
+    margin-top: -1.5em;
+    margin-bottom: 2.5em;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4em 1em;
+    min-height: calc(100vh - 4em); /* Ajustado para a altura do header de 4em */
+}
+
+.login-form {
+    background-color: #121116;
+    width: 100%;
+    max-width: 600px;
+    padding: 3em;
+    border-radius: 20px;
+    border: 1px solid #5fb4c94b;
+    text-align: center;
+}
+
+.login-form h2 {
+    margin-bottom: 2em;
+    font-size: 2em;
+    text-transform: uppercase;
+    font-family: 'Causten', sans-serif;
+}
+
+.input-group {
+    position: relative; 
+    margin-bottom: 3em;
+    text-align: left;
+}
+
+.input-field {
+    width: 100%;
+    color: #ffffff;
+    font-size: 1em;
+    padding: 1em 0 0.5em 0;
+    transition: all 0.2s ease-in-out;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #555;
+}
+
+.input-label {
+    position: absolute; 
+    left: 0; 
+    top: 50%; 
+    transform: translateY(-50%);
+    color: #aaa; 
+    font-size: 1em;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+.input-field:focus ~ .input-label,
+.input-field:not(:placeholder-shown) ~ .input-label {
+    top: 0; 
+    font-size: 0.8em; 
+    color: #5fb4c9; 
+    transform: translateY(-50%); 
+}
+
+.input-field:focus {
+    outline: none;
+    border-bottom-color: #5fb4c9;
+}
+
+.forgot-password-link {
+    text-align: right;
+    margin-top: -2em;
+    margin-bottom: 2.5em;
+    font-size: 0.9em;
+}
+
+.forgot-password-link a {
+    color: #aaa;
+    text-decoration: none;
+}
+
+.forgot-password-link a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.button-group {
+    margin-top: 2em;
+}
+
+.btn-submit {
+    color: #fff;
+    font-size: 1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #1A2B3A;
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+}
+
+.btn-submit:hover {
+    background-color: #2b465f;
+}
+
+.btn-submit:active {
+    transform: scale(0.98); 
+}
+
+.register-link { 
+    margin-top: 1.5em;
+    font-size: 0.9em;
+    color: #fff; 
+}
+
+/* ID CORRETO: #register-link (para o link "Sign up now") */
+/* O seu HTML de login.html usa <a href="cadastro.html">,
+   vamos adicionar um ID nele para o estilo */
+#register-link a { 
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+#register-link a:hover {
+    color: #a0d8e8;
+}
+
+/* ====================================================== */
+/* ========== RESPONSIVIDADE (MEDIA QUERIES) ========== */
+/* ====================================================== */
+@media (max-width: 768px) {
+    header {
+        padding: 1.5em 20px;
+        gap: 2em;
+        justify-content: space-between;
+    }
+    .login-form {
+        padding: 2em;
+    }
+    .login-form h2 {
+        font-size: 1.5em;
+        font-family: "Roboto", sans-serif;
+    }
+}
+
+@media (max-width: 480px) {
+    #logo {
+        height: 40px;
+    }
+    /* ID CORRETO: #top-corner (em vez de #cant_superior) */
+    #top-corner {
+        gap: 20px;
+    }
+    #top-corner img {
+        height: 28px;
+    }
+    header > .header_icon > h5 {
+        display: none;
+    }
+    header {
+      gap: 1em;
+    }
+}

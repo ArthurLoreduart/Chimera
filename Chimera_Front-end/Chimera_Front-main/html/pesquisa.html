@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa</title>
+    <link rel="stylesheet" href="../css/pesquisa.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body class="page-pesquisa">
+     <header>
+    <div id="logo-separator">
+        <img id="logo" src="../Imagens/image0_large.png" alt="Logo">
+    </div>
+
+    <span class="header_icon"><a href="../index.html"><h5>Home</h5></a></span>
+    <span class="header_icon"><h5>Movies</h5></span>
+    <span class="header_icon"><h5>Series</h5></span>
+
+    <div id="top-corner">
+
+        <div class="profile-container">
+            <div class="profile-icon">
+                <img src="../Imagens/image 8.png" alt="Profile">
+            </div>
+
+          <div class="dropdown-menu">
+    <div class="menu-content">
+        <div class="section section-account">
+            <h3>Account</h3>
+            <ul>
+                <li class="active-item"><a id="signin-link" href="Login.html">Sign in</a></li>
+                <li><a id="signout-link" href="#">Sign out</a></li>
+            </ul>
+        </div>
+        <div class="section section-profiles">
+            <h3>PROFILES</h3>
+            <ul>
+                <li>
+                    <a href="perfil.html" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                        <img src="../imagens/image 8.png" alt="Avatar" style="margin-right: 10px;">
+                        <span id="profile-username">User</span>
+                    </a>
+                </li>
+            </ul>
+            
+                        <div class="profile-actions">
+                            <div id="flex-more">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <span class="header_icon">
+        <img src="../Imagens/bell-svgrepo-com 1.png" alt="Notifications">
+    </span>
+</header>
+
+    <!-- Icon line after header -->
+    <div id="icon-line">
+        <span class="header_icon"><img src="../imagens/image.png" alt=""></span>
+        <span class="header_icon"><img src="../imagens/image 3.png" alt=""></span>
+        <span class="header_icon"><img src="../imagens/image 5.png" alt=""></span>
+        <span class="header_icon"><img src="../imagens/image 6.png" alt=""></span>
+    </div>
+
+    <form id="search-form" action="html/pesquisa.html" method="GET">
+    
+    <input type="text" id="search-input" name="q" placeholder="Search...">
+    
+    <button type="submit" id="search-btn">
+        </button>
+    </form>
+
+    <main>
+<div class="static-grid-container" id="adventure-grid">
+    <div class="grid-list" data-section="adventure">
+        </div>
+</div>
+    </main>
+    
+<script>
+    // Variáveis de escopo mais amplo
+    let resultsContainer;
+    let statusElement;
+    // A função createResultCard será definida pelo apicatalago.js (incluído depois)
+
+    // Função para buscar e exibir os resultados
+    async function searchAndDisplay(query) {
+        if (!resultsContainer) {
+            console.error("resultsContainer não encontrado ao tentar buscar.");
+            return;
+        }
+        // Validação básica da query
+        if (!query || query.trim().length === 0) {
+            resultsContainer.innerHTML = '<p>Nenhum termo de pesquisa fornecido.</p>';
+            if (statusElement) statusElement.textContent = "Digite algo na busca.";
+            // Limpa a URL se a query for vazia (opcional)
+            history.pushState(null, '', `pesquisa.html`);
+            return;
+        }
+
+        // Limpa query e atualiza status
+        const trimmedQuery = query.trim();
+        if (statusElement) statusElement.textContent = `Buscando por "${trimmedQuery}"...`;
+        resultsContainer.innerHTML = ''; // Limpa resultados anteriores
+
+        try {
+            // Busca na API
+            // API_BASE_URL vem do header.js (incluído depois)
+            const response = await fetch(`${API_BASE_URL}/api/search?q=${encodeURIComponent(trimmedQuery)}`);
+            if (!response.ok) throw new Error(`Falha ao buscar resultados (Status: ${response.status})`);
+
+            const data = await response.json();
+            console.log("Dados recebidos da API:", data);
+
+            // Exibe os resultados ou mensagem de "não encontrado"
+            if (data && Array.isArray(data) && data.length > 0) {
+                if (statusElement) statusElement.textContent = `Resultados para "${trimmedQuery}":`;
+                data.forEach(item => {
+                    const card = createResultCard(item); // Usa a função global createResultCard (que é createMovieCard)
+                    if (card) {
+                        resultsContainer.appendChild(card);
+                    } else {
+                        console.warn("Card nulo retornado para o item:", item);
+                    }
+                });
+            } else {
+                resultsContainer.innerHTML = `<p>Nenhum resultado encontrado para "${trimmedQuery}".</p>`;
+                if (statusElement) statusElement.textContent = "";
+            }
+        } catch (error) {
+            console.error('Erro ao buscar resultados da pesquisa:', error);
+            resultsContainer.innerHTML = `<p>Ocorreu um erro ao buscar os resultados. Verifique o console.</p>`;
+            if (statusElement) statusElement.textContent = "Erro na busca.";
+        }
+    }
+
+    // Listener principal que roda quando o HTML inicial é carregado
+    document.addEventListener('DOMContentLoaded', () => {
+        // Define as variáveis de container
+        resultsContainer = document.querySelector('.grid-list');
+        statusElement = document.getElementById('search-status'); // Opcional: Para mensagens
+
+        if (!resultsContainer) {
+            console.error("Container de resultados '.grid-list' não encontrado no DOMContentLoaded.");
+            if(statusElement) statusElement.textContent = "Erro: Container de resultados não encontrado.";
+            return;
+        }
+
+        // Pega o parâmetro 'q' da URL inicial
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialQuery = urlParams.get('q');
+        const searchInputOnPage = document.getElementById('search-input'); // Pega o input DESTA página
+
+        // Preenche o input com a query inicial (se existir)
+        if(initialQuery && searchInputOnPage) {
+            searchInputOnPage.value = initialQuery;
+        }
+
+        // Chama a função de busca com a query inicial
+        // Espera um pouco para garantir que createResultCard de apicatalago.js esteja disponível
+        setTimeout(() => searchAndDisplay(initialQuery), 0);
+
+        // Adiciona listener para o formulário de busca NESTA PÁGINA
+        const searchFormOnPage = document.getElementById('search-form');
+
+        if (searchFormOnPage && searchInputOnPage) {
+            searchFormOnPage.addEventListener('submit', (e) => {
+                e.preventDefault(); // Previne o envio padrão do FORM
+                e.stopPropagation(); // IMPORTANTE: Impede que o listener do header.js seja executado!
+
+                const newQuery = searchInputOnPage.value; // Pega o valor atual do input
+                // Atualiza a URL sem recarregar
+                history.pushState(null, '', `?q=${encodeURIComponent(newQuery.trim())}`);
+                // Chama a função de busca com a nova query
+                searchAndDisplay(newQuery);
+            });
+        } else {
+            console.error("Formulário de busca (#search-form ou #search-input) não encontrado nesta página.");
+        }
+    });
+</script>
+    <script src="../js/script.js"></script>
+
+<script src="../js/header.js"></script> 
+<script src="../js/apicatalago.js"></script>
+
+<script>
+    // Renomeia a função para o script local poder usar
+    const createResultCard = createMovieCard; 
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        // ... resto do seu script da página de pesquisa ...
+    });
+
+    // A função createResultCard (que era createMovieCard) já não é mais necessária aqui
+    // pois foi carregada do apicatalago.js
+</script>
+</body>
+</html>
